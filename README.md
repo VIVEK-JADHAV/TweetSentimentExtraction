@@ -8,6 +8,7 @@ The data set provided by Kaggle had two files: train and test. The train file ha
 
 ### Performance Metric
 The performance metric used for evaluation is word-level Jaccard score. It is calculated as follows:
+![Performance Metric](https://github.com/VIVEK-JADHAV/TweetSentimentExtraction/blob/master/Images/performance.png)
 
 
 Medium Article: https://medium.com/@vivekjadhavr/tweet-sentiment-extraction-6cdf7a136fc3#6249
