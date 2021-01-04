@@ -44,6 +44,26 @@ This model has the following layers:
 5.Time distributed Dense Layer: This layer takes LSTM output at every time sequence and predicts whether that token must be present in the selected_text or not.
 
 The model was trained with Adam optimizer with default learning rate. With 0.1 as the threshold, the predicted values were converted to binary(0's and 1's).Longest sub sequence algorithm was used to determine the tokens that would be part of the selected_text.
+
 The mean jaccard score for hold out test data-set was 0.58.The average jaccard score for positive sentiment is 0.31, for negative sentiment is 0.33 and for neutral sentiment is 0.97. This model's performance did not improve from that of baseline model.
+
+### Named Entity Recognition Model
+NER is a process of identifying different entities present in the text and classifying them into categories like Person,Organization,Location and so on. A library called spaCy allows us to update the existing spaCy model to suit the given data set or train models from scratch, creating new labels. 
+For this case study, three separate NER models were created, one for each sentiment. Each of the NER model was trained with selected_text as a entity to recognize from the tweet. During inference, given a tweet, the model would label part of the tweet as selected_text.
+
+The mean jaccard score for hold out test data-set was much improved 0.64. The average jaccard score for positive sentiment is 0.43, for negative sentiment is 0.41 and for neutral sentiment is 0.97.
+
+### BERT QA Model
+BERT (Bidirectional Encoder Representations from Transformers) transformed the landscape in Natural Language Processing by providing the power of transfer learning.One such task that can be performed by fine tuning BERT model is Question Answering Task. Fortunately, Hugging Face library have implemented TFBertForQuestionAnswering model which takes question and a paragraph in a specific format and returns probability of each token in paragraph to be start index and end index of the answer.For this case study, sentiment acts as question, tweet as context and selected_text as answer.
+
+![BERT_QAModel Archietecture](https://github.com/VIVEK-JADHAV/TweetSentimentExtraction/blob/master/Images/BERT_QAModel.png)
+
+BERT model has its own tokenizer called BertWordPieceTokenizer which converts the data into tokens as used to train the BERT model. The input that has to be given to the model are:
+1.Input_ids: It starts with [CLS] token followed by sentiment_id,then [SEP] token,followed by ids of the tweet and ends with [SEP] token.
+2.Attention_mask: This layer prevents attention mechanism on padded tokens. Therefore, all the input_ids would have one and rest would have zero.
+3.Token_type_ids: This layer separates the question ids from the context ids.
+The question ids would have value of zero and answer ids with one.
+The Bert model returns logits, hence softmax activation is applied as output layer. The model was trained with Adam optimizer with learning rate of 2e-5 and loss as Categorical Crossentropy.The mean jaccard score for hold out test data-set was 0.63.The average jaccard score for positive sentiment is 0.41, for negative sentiment is 0.39 and for neutral sentiment is 0.97.
+
 
 Medium Article: https://medium.com/@vivekjadhavr/tweet-sentiment-extraction-6cdf7a136fc3#6249
