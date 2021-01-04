@@ -41,7 +41,7 @@ This model has the following layers:
 2. Mask layer: This layer is masking the padded tokens.
 3. Embedding Layer: Each token id is converted to 100 D vector using the pre-trained Glove vectors.
 4. LSTM layer: This layer returns output at each time sequence. This is achieved by setting the parameter return sequences=True
-5.Time distributed Dense Layer: This layer takes LSTM output at every time sequence and predicts whether that token must be present in the selected_text or not.
+5. Time distributed Dense Layer: This layer takes LSTM output at every time sequence and predicts whether that token must be present in the selected_text or not.
 
 The model was trained with Adam optimizer with default learning rate. With 0.1 as the threshold, the predicted values were converted to binary(0's and 1's).Longest sub sequence algorithm was used to determine the tokens that would be part of the selected_text.
 
@@ -59,10 +59,11 @@ BERT (Bidirectional Encoder Representations from Transformers) transformed the l
 ![BERT_QAModel Archietecture](https://github.com/VIVEK-JADHAV/TweetSentimentExtraction/blob/master/Images/BERT_QAModel.png)
 
 BERT model has its own tokenizer called BertWordPieceTokenizer which converts the data into tokens as used to train the BERT model. The input that has to be given to the model are:
-1.Input_ids: It starts with [CLS] token followed by sentiment_id,then [SEP] token,followed by ids of the tweet and ends with [SEP] token.
-2.Attention_mask: This layer prevents attention mechanism on padded tokens. Therefore, all the input_ids would have one and rest would have zero.
-3.Token_type_ids: This layer separates the question ids from the context ids.
+1. Input_ids: It starts with [CLS] token followed by sentiment_id,then [SEP] token,followed by ids of the tweet and ends with [SEP] token.
+2. Attention_mask: This layer prevents attention mechanism on padded tokens. Therefore, all the input_ids would have one and rest would have zero.
+3. Token_type_ids: This layer separates the question ids from the context ids.
 The question ids would have value of zero and answer ids with one.
+
 The Bert model returns logits, hence softmax activation is applied as output layer. The model was trained with Adam optimizer with learning rate of 2e-5 and loss as Categorical Crossentropy.The mean jaccard score for hold out test data-set was 0.63.The average jaccard score for positive sentiment is 0.41, for negative sentiment is 0.39 and for neutral sentiment is 0.97.
 
 
