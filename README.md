@@ -11,5 +11,9 @@ The performance metric used for evaluation is word-level Jaccard score. It is ca
 
 ![Performance Metric](https://github.com/VIVEK-JADHAV/TweetSentimentExtraction/blob/master/Images/performance.png)
 
+### Exploratory Data Analysis
+- There are large number of tweets with word length 5 to 7 irrespective of sentiment value.
+- Positive and negative sentiment have similar distribution for difference in word length.
+- Neutral sentiment has higher number of words in the selected_text compared to positive and negative sentiment. In fact, 92% of neutral tweets have equal word length and selected_text.Thus, neutral tweets can be returned as it is as the selected_text.
 
 Medium Article: https://medium.com/@vivekjadhavr/tweet-sentiment-extraction-6cdf7a136fc3#6249
