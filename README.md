@@ -18,6 +18,7 @@ The performance metric used for evaluation is word-level Jaccard score. It is ca
 
 ### BaseLine model
 In this model, the tweet and its sentiment are given as input, and the start and end index of the selected text is returned by the model.
+
 ![BaseLineModel Archietecture](https://github.com/VIVEK-JADHAV/TweetSentimentExtraction/blob/master/Images/BaseLineModel.png)
 
 This base line model has the following layers:
@@ -26,7 +27,23 @@ This base line model has the following layers:
 3. Conv1d Layer: 6 conv1d layers with kernel size 2 and stride=1
 4. Dropout Layer: To prevent over-fitting.
 5. Output layer: Two 32 neuron dense layer with soft-max activation function. One predicting the start index and other predicting the end index.
+
 Loss function used was CategoricalCrossentropy and Adam optimizer with default learning rate.
 The mean jaccard score for hold out test data-set was 0.59.The average jaccard score for positive sentiment is 0.35, for negative sentiment is 0.36 and for neutral sentiment is 0.92.
+
+### Many To Many Model
+In this model, the tweet is given as input to a LSTM layer and a time distributed dense layer is used to predict whether each of the input token must be present in selected_text or not.
+
+![MantToManyModel Archietecture](https://github.com/VIVEK-JADHAV/TweetSentimentExtraction/blob/master/Images/ManyToManyModel.png)
+
+This model has the following layers:
+1. Input layer: This layer takes in token ids of the tweet as input.
+2. Mask layer: This layer is masking the padded tokens.
+3. Embedding Layer: Each token id is converted to 100 D vector using the pre-trained Glove vectors.
+4. LSTM layer: This layer returns output at each time sequence. This is achieved by setting the parameter return sequences=True
+5.Time distributed Dense Layer: This layer takes LSTM output at every time sequence and predicts whether that token must be present in the selected_text or not.
+
+The model was trained with Adam optimizer with default learning rate. With 0.1 as the threshold, the predicted values were converted to binary(0's and 1's).Longest sub sequence algorithm was used to determine the tokens that would be part of the selected_text.
+The mean jaccard score for hold out test data-set was 0.58.The average jaccard score for positive sentiment is 0.31, for negative sentiment is 0.33 and for neutral sentiment is 0.97. This model's performance did not improve from that of baseline model.
 
 Medium Article: https://medium.com/@vivekjadhavr/tweet-sentiment-extraction-6cdf7a136fc3#6249
