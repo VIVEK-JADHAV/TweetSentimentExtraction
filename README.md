@@ -73,7 +73,7 @@ Roberta builds on Bert model. It was trained on bigger training data,longer sequ
 
 Roberta model has its own tokenizer called ByteLevelBPETokenizer which converts the data into tokens as used to train Roberta model. The model has the following layers:
 
-1. Input_ids: It starts with <s> token followed by ids of the tweet,then <//s> and <//s> token,followed by sentiment_id and ends with <//s>token. The <s> and </s> are start and end token specific to Roberta model.
+1. Input_ids: It starts with start token followed by ids of the tweet,then end token and end token,followed by sentiment_id and ends with end token.
 2. Attention_mask: This layer prevents attention mechanism on padded tokens. Therefore, all the input_ids would have one and rest would have zero.
 3. Token_type_ids: Since there are no separate segments of question and context as in Bert QA model, all the values of token_type_ids are zero.
 4. Dropout layer: To prevent over fitting, dropout layer is used.
